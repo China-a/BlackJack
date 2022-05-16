@@ -38,11 +38,11 @@ public class Deck {
         return card;
     }
 
-    public void print() {
-        for( int i = 0; i < deck.size()-1; i++) {
-            deck.get(i).toString();
-        }
-
-    }
+//    public void print() {
+//        for( int i = 0; i < deck.size()-1; i++) {
+//            deck.get(i).toString();
+//        }
+//
+//    }
 
 }

@@ -40,16 +40,19 @@ public class Game {
     }
 
     public void dealerTurn() {
-         System.out.println("Dealer has: " + dealerHand); System.out.println(cardValue(dealerHand));
+         System.out.println("Dealer has: " + dealerHand);
+         System.out.println(cardValue(dealerHand));
             while(cardValue(dealerHand) < 17 && cardValue(dealerHand) < 21) {
                 Card card = cardDeck.draw();
                 dealerHand.add(card);
+                System.out.println(dealerHand);
+                System.out.println(cardValue(dealerHand));
             }
 
                 if (cardValue(dealerHand) > 21) {
                     System.out.println("Dealer has:" + dealerHand);
                     System.out.println(cardValue(dealerHand));
-                    System.out.println(" Dealer Bust! You win");
+                    System.out.println("Dealer Bust! You win");
                     player.add(bet);
                     System.out.println(player.print());
 
@@ -59,15 +62,17 @@ public class Game {
 
                     if (playerAnswer.equalsIgnoreCase("Yes")) {
                         round = true;
+
                     } else if (playerAnswer.equalsIgnoreCase("No")) {
                         round = false;
                     }
 
                 }
+//                if(cardValue(dealerHand) > 21 && cardValue(playerHand) == 21) {
+//                    System.out.println("Dealer Bust! And you have BlackJack!!");
+//                }
 
         }
-
-
 
     public void gameRound() {
         while (round = true) {
@@ -80,6 +85,23 @@ public class Game {
 
             System.out.println("Your hand: " + playerHand); System.out.println(cardValue(playerHand));
             System.out.println("Dealer hand: " + dealerHand.get(0).toString());
+            if(cardValue(playerHand) == 21) {
+                System.out.println("You have BlackJack! You win!");
+                round = false;
+                System.out.println("Would you like to play a new game? Yes or No");
+                playerAnswer = scanner.nextLine();
+
+                if (playerAnswer.equalsIgnoreCase("Yes")) {
+                    round = true;
+
+                } else if (playerAnswer.equalsIgnoreCase("No")) {
+                    round = false;
+                    break;
+
+                }
+
+            }
+
             System.out.println("Would you like to Hit or Stand?");
             play = scanner.next();
 
@@ -101,32 +123,51 @@ public class Game {
                }
 
                if (cardValue(playerHand) > 21) {
-                    System.out.println("You Bust! You lose your bet");
-                    player.subtract(bet);
-                    System.out.println(player.print());
+                   System.out.println("You Bust! You lose your bet");
+                   player.subtract(bet);
+                   System.out.println(player.print());
 
-                    round = false;
-                    System.out.println("Would you like to play a new game? Yes or No");
-                    playerAnswer = scanner.nextLine();
+                   round = false;
+                   System.out.println("Would you like to play a new game? Yes or No");
+                   playerAnswer = scanner.nextLine();
 
-                    if (playerAnswer.equalsIgnoreCase("Yes")) {
-                        round = true;
-                    } else if (playerAnswer.equalsIgnoreCase("No")) {
+                   if (playerAnswer.equalsIgnoreCase("Yes")) {
+                       round = true;
+
+                   } else if (playerAnswer.equalsIgnoreCase("No")) {
+                       round = false;
+                       break;
+
+                   }
+               }
+                    if (cardValue(playerHand) == 21) {
+                        System.out.println("You have BlackJack! You win");
+                        player.add(bet);
+                        System.out.println(player.print());
+
                         round = false;
-                        break;
+                        System.out.println("Would you like to play a new game? Yes or No");
+                        playerAnswer = scanner.nextLine();
 
+                        if (playerAnswer.equalsIgnoreCase("Yes")) {
+                            round = true;
+
+                        } else if (playerAnswer.equalsIgnoreCase("No")) {
+                            round = false;
+                            break;
+                        }
                     }
-                }
 
             }
 
             if (play.equalsIgnoreCase("Stand")) {
                 dealerTurn();
 
-                if (cardValue(playerHand) > cardValue(dealerHand)) {
+                if (cardValue(playerHand) > cardValue(dealerHand) && cardValue(playerHand) < 21) {
                     System.out.println("You have a higher value! You win");
                     player.add(bet);
                     System.out.println(player.print());
+//                    System.out.println(cardValue(dealerHand));
 
                     round = false;
                     System.out.println("Would you like to play a new game? Yes or No");
@@ -134,11 +175,28 @@ public class Game {
 
                     if (playerAnswer.equalsIgnoreCase("Yes")) {
                         round = true;
+
                     } else if (playerAnswer.equalsIgnoreCase("No")) {
                         round = false;
                         break;
                     }
                 }
+
+//                if(cardValue(playerHand) == 21 ) {
+//                    System.out.println("You have BlackJack!");
+//
+//                    round = false;
+//                    System.out.println("Would you like to play a new game? Yes or No");
+//                    playerAnswer = scanner.nextLine();
+//
+//                    if (playerAnswer.equalsIgnoreCase("Yes")) {
+//                        round = true;
+//                    } else if (playerAnswer.equalsIgnoreCase("No")) {
+//                        round = false;
+//                        break;
+//                    }
+//
+//                }
 
                 if (cardValue(dealerHand) == 21 ) {
                     System.out.println("Dealer has BlackJack! You lose your bet");
@@ -168,6 +226,7 @@ public class Game {
 
                     if (playerAnswer.equalsIgnoreCase("Yes")) {
                         round = true;
+
                     } else if (playerAnswer.equalsIgnoreCase("No")) {
                         round = false;
                         break;
@@ -189,6 +248,22 @@ public class Game {
                         break;
                     }
                 }
+
+//                if(cardValue(playerHand) == 21 && cardValue(dealerHand) == 21) {
+//                    System.out.println("It's a Tie!");
+//                    System.out.println(player.print());
+//
+//                    round = false;
+//                    System.out.println("Would you like to play a new game? Yes or No");
+//                    playerAnswer = scanner.nextLine();
+//
+//                    if (playerAnswer.equalsIgnoreCase("Yes")) {
+//                        round = true;
+//                    } else if (playerAnswer.equalsIgnoreCase("No")) {
+//                        round = false;
+//                        break;
+//                    }
+//                }
             }
 
 
@@ -198,7 +273,6 @@ public class Game {
 
                 if (playerAnswer.equalsIgnoreCase("Yes")) {
                     round = true;
-
                 } else if (playerAnswer.equalsIgnoreCase("No")) {
                     System.out.println("Thanks for playing!");
                     round = false;
